@@ -1,0 +1,38 @@
+ /* chrom, safari, opera */
+ .scrollbar-hide::-webkit-scrollbar {
+   display: none;
+ }
+
+ /* edge and firefox*/
+ .scrollbar-hide {
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+ }
+
+ .fade {
+   animation: fade 0.4s ease-in;
+ }
+
+ .pop {
+   animation: pop 0.2s ease-in-out;
+ }
+
+ @keyframes fade {
+   from {
+     opacity: 0;
+   }
+
+   to {
+     opacity: 1;
+   }
+ }
+
+ @keyframes pop {
+   from {
+     scale: 0;
+   }
+
+   to {
+     scale: 1;
+   }
+ }
