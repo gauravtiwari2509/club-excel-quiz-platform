@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma/prisma";
 
 const SALT_ROUNDS = 10;
-
+//add the types later
 export async function handleSignUp(req: NextRequest, data: any) {
   const { name, email, password, isNistian, nistEmail, roll } = data;
 
