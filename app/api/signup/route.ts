@@ -4,14 +4,11 @@ import prisma from "@/lib/prisma";
 import { signUpSchema } from "@/zodSchemas/SignupSchema";
 
 const SALT_ROUNDS = 10;
-export async function GET(req: NextRequest) {
-  return NextResponse.json({ message: "okay working fine" });
-}
+
 export async function POST(req: NextRequest) {
-  console.log("requesto arrives");
   try {
-    const { data }: { data: any } = await req.json();
-    console.log(data);
+    //later add the types for data
+    const { data } = await req.json();
     const parsedData = signUpSchema.safeParse(data);
 
     if (!parsedData.success) {
@@ -20,7 +17,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    console.log(parsedData.data);
     const { name, email, password, isNistian, nistEmail, roll } =
       parsedData.data;
 
