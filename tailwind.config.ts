@@ -9,6 +9,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        bg: "rgb(2, 0, 22)",
         background: "rgb(22, 14, 42)",
         foreground: "var(--foreground)",
         blue: {
@@ -18,6 +19,15 @@ export default {
         green: {
           700: "#118B50",
         },
+      },
+      fontFamily: {
+        primary: [
+          'DM Sans',
+          'serif'
+        ]
+      },
+      fontSize: {
+        md: '14px'
       },
     },
   },
