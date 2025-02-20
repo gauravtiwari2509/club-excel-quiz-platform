@@ -12,6 +12,9 @@ model User {
   name      String
   role      Role     @default(NORMAL)
   email     String   @unique
+  isNistian Boolean
+  nistEmail String?  @unique
+  roll      String?  @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
