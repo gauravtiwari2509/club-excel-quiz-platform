@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  role      Role     @default(NORMAL)
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  quizzes      Quiz[]
+  quizAttempts QuizAttempt[]
+}
+
+model Quiz {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  category    String
+  status      QuizStatus @default(UPCOMING)
+  startTime   DateTime
+  endTime     DateTime
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  userId      String
+
+  user         User          @relation(fields: [userId], references: [id])
+  questions    Question[]
+  quizAttempts QuizAttempt[]
+}
+
+model Question {
+  id           String   @id @default(uuid())
+  quizId       String
+  questionText String
+  topic        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  quiz    Quiz     @relation(fields: [quizId], references: [id])
+  options Option[]
+  Answer  Answer[]
+}
+
+model Option {
+  id         String   @id @default(uuid())
+  questionId String
+  optionText String
+  isCorrect  Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  question Question @relation(fields: [questionId], references: [id])
+  Answer   Answer[]
+}
+
+model QuizAttempt {
+  id           String        @id @default(uuid())
+  userId       String
+  quizId       String
+  score        Int?
+  startedAt    DateTime
+  finishedAt   DateTime?
+  status       AttemptStatus @default(IN_PROGRESS)
+  isPlagiarism Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  user    User     @relation(fields: [userId], references: [id])
+  quiz    Quiz     @relation(fields: [quizId], references: [id])
+  answers Answer[]
+}
+
+model Answer {
+  id               String   @id @default(uuid())
+  quizAttemptId    String
+  selectedOptionId String?
+  questionId       String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  quizAttempt    QuizAttempt @relation(fields: [quizAttemptId], references: [id])
+  question       Question    @relation(fields: [questionId], references: [id])
+  selectedOption Option?     @relation(fields: [selectedOptionId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  NORMAL
+}
+
+enum QuizStatus {
+  UPCOMING
+  ONGOING
+  COMPLETED
+}
+
+enum AttemptStatus {
+  IN_PROGRESS
+  SUBMITTED
+  CANCELLED
+}
