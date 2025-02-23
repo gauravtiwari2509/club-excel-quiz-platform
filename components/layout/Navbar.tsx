@@ -1,12 +1,14 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const { data } = useSession();
 
   return (
-    <nav className="w-screen lg:h-[12vh] bg-[#020016] px-8 py-4 flex items-center justify-between border-gray-700 border-b-2">
+    <nav className="w-full p-8 flex items-center justify-between ">
       <Link href={"/"} className="flex gap-2 items-center self-start">
         <img
           src="/photo/clubexcellogo.png"
@@ -16,21 +18,25 @@ const Navbar = () => {
         <span className="uppercase text-2xl md:text-3xl font-semibold">
           club excel
         </span>
+        <span className="text-sm text-red-100">
+          debugging: {data ? data.user.email : "Not Logged In"}
+        </span>
       </Link>
 
       <div className="w-fit justify-center items-center gap-8 hidden md:flex">
-        <Link href={"/"} className="uppercase">
-          home
-        </Link>
         <Link href={"/contact"} className="uppercase">
           contact us
         </Link>
-        <Link href={"/signin"} className="uppercase">
-          signin
+        <Link href={"/quizes"} className="uppercase">
+          Quiz
         </Link>
-        <Link href={"/signup"} className="uppercase">
-          signup
-        </Link>
+        {
+          !data ? (
+            <Link href={"/signin"} className="uppercase p-2 bg-primary font-semibold rounded-lg px-4">
+              Login
+            </Link>
+          ) : null
+        }
       </div>
 
       <div

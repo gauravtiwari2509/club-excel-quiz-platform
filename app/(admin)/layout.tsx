@@ -1,5 +1,4 @@
-import Footer from "@/components/layout/Footer";
-import Navbar from "@/components/layout/Navbar";
+import AdminNavBar from "@/components/layout/AdminNavBar";
 import React from "react";
 export default function RootLayout({
   children,
@@ -7,8 +6,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return <>
-    <Navbar />
-    {children}
-    <Footer />
+  <AdminNavBar />
+  {children}
   </>;
 }
