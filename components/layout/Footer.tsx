@@ -4,7 +4,7 @@ import Image from "next/image";
 const logoStyle = "w-25 h-25 rounded-full bg-white p-1 cursor-pointer";
 const Footer = () => {
   return (
-    <div className="w-screen p-2 flex flex-col gap-1 justify-center items-center">
+    <div className="w-full p-2 flex flex-col gap-1 justify-center items-center mt-11">
       <div className="flex gap-4 ">
         <a
           href="https://linkedin.com/company/club-excel-nist/"

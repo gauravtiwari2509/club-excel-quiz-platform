@@ -21,6 +21,9 @@ export default {
         green: {
           700: "#118B50",
         },
+        success: "#3E8000",
+        accent: "#007089",
+        error: ""
       },
       fontFamily: {
         primary: [

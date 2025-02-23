@@ -3,7 +3,7 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <div className="w-screen min-h-[88vh] flex flex-col items-center justify-center text-center text-white px-6">
+    <div className="w-full min-h-[60vh] flex flex-col items-center justify-center text-center text-white px-6">
       <img
         src="/photo/Excel_Logo_Anim.gif"
         alt="Club Excel Logo"
