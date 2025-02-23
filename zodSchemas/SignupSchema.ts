@@ -45,3 +45,5 @@ export const signUpSchema = z
       path: ["nistEmail", "roll"],
     }
   );
+
+export type signUpParam = z.infer<typeof signUpSchema>;

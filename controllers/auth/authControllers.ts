@@ -23,19 +23,19 @@ export async function handleSignUp(req: NextRequest, data: any) {
     if (existingUser) {
       if (existingUser.email === email) {
         return NextResponse.json(
-          { message: "User with this email already exists." },
+          { message: "User with this email already exists.", success: false },
           { status: 400 }
         );
       }
       if (isNistian && existingUser.nistEmail === nistEmail) {
         return NextResponse.json(
-          { message: "NIST email already in use." },
+          { message: "NIST email already in use.", success: false },
           { status: 400 }
         );
       }
       if (isNistian && existingUser.roll === roll) {
         return NextResponse.json(
-          { message: "Roll number already in use." },
+          { message: "Roll number already in use." , success: false },
           { status: 400 }
         );
       }
@@ -55,14 +55,14 @@ export async function handleSignUp(req: NextRequest, data: any) {
     });
 
     return NextResponse.json(
-      { message: "User created successfully" },
+      { message: "User created successfully", success: true },
       { status: 201 }
     );
   }
   catch (ex) {
     console.log("\nExceptions of Handle Signup:\n", `${ex}`);
     return NextResponse.json(
-      { message: "Internal Server Error"},
+      { message: "Internal Server Error" },
       { status: 500 }
     );
   }
