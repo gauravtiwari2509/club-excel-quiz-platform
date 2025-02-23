@@ -14,4 +14,8 @@ const createQuestionSchema = z.object({
     .min(2, "question must have at least 2 options"),
 });
 
-export { createQuestionSchema };
+const DeleteQuestionSchema = z.object({
+  questionId: z.string().uuid("Question ID must be a valid UUID"),
+});
+
+export { createQuestionSchema, DeleteQuestionSchema };

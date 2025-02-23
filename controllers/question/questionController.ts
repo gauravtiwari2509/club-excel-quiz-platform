@@ -73,3 +73,53 @@ export async function handleCreateQuestion(req: NextRequest, data: any) {
     );
   }
 }
+
+export async function handleDeleteQuestion({
+  questionId,
+}: {
+  questionId: string;
+}) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  const { role: userRole } = session?.user || {};
+
+  if (userRole !== "ADMIN") {
+    return NextResponse.json(
+      { message: "Only admin is permitted to delete questions" },
+      { status: 403 }
+    );
+  }
+
+  try {
+    const question = await prisma.question.findUnique({
+      where: { id: questionId },
+    });
+
+    if (!question) {
+      return NextResponse.json(
+        { message: "Question not found" },
+        { status: 404 }
+      );
+    }
+
+    await prisma.question.delete({
+      where: { id: questionId },
+    });
+
+    return NextResponse.json(
+      {
+        message: "Question deleted successfully",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting question:", error);
+    return NextResponse.json(
+      { message: "Failed to delete question" },
+      { status: 500 }
+    );
+  }
+}
