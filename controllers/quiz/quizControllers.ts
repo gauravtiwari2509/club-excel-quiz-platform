@@ -149,3 +149,61 @@ export async function handleDeleteQuiz(
     );
   }
 }
+export async function getAllQuizQuestion(
+  req: NextRequest,
+  { quizId }: { quizId: string }
+) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  const { role: userRole } = session?.user || {};
+
+  try {
+    const quiz = await prisma.quiz.findUnique({
+      where: {
+        id: quizId,
+      },
+    });
+
+    if (!quiz) {
+      return NextResponse.json({ message: "Quiz not found" }, { status: 404 });
+    }
+
+    if (quiz.isPublished === false && userRole !== "ADMIN") {
+      return NextResponse.json(
+        { message: "Quiz not published, please wait until it get published" },
+        { status: 403 }
+      );
+    }
+
+    const quizData = await prisma.quiz.findUnique({
+      where: {
+        id: quizId,
+      },
+      include: {
+        questions: {
+          include: {
+            options: true,
+          },
+        },
+      },
+    });
+
+    return NextResponse.json(
+      {
+        data: quizData,
+        message: "Quiz data fetched successfully",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { message: "Something went wrong, please try again later." },
+      { status: 500 }
+    );
+  }
+}
