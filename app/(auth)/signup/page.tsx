@@ -38,7 +38,7 @@ export default function SignUp() {
       }
       const res = await signUpPost(payload);
       if (res.data.success) {
-        router.push("/")
+        router.push("/signup")
       }
       console.log(res);
     }

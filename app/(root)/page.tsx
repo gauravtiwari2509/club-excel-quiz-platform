@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <Banner />
-      <div className="grid grid-cols-3 gap-8 mb-36">
+      <div className="grid mx-4 md:mx-8 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-36">
         <QuizCardNew />
         <QuizCardNew />
         <QuizCardNew />
