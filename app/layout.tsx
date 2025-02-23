@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { DM_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./utils.css"
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import AuthProvider from "@/components/layout/SessionProvider";
+import SafeArea from "@/components/layout/SafeArea";
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -31,9 +31,11 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${geistMono.variable} antialiased min-h-[100vh] flex flex-col`}
       >
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <SafeArea>
+            {children}
+          </SafeArea>
+        </AuthProvider>
       </body>
     </html>
   );

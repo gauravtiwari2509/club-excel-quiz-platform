@@ -1,12 +1,12 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   return (
-    <nav className="w-screen lg:h-[12vh] bg-[#020016] px-8 py-4 flex items-center justify-between border-gray-700 border-b-2">
+    <nav className="w-full p-8 flex items-center justify-between ">
       <Link href={"/"} className="flex gap-2 items-center self-start">
         <img
           src="/photo/clubexcellogo.png"

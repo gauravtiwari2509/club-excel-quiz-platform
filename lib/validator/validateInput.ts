@@ -7,7 +7,17 @@ export function withValidation<T>(
 ) {
   return async function (req: NextRequest) {
     try {
-      const { data } = await req.json();
+      // if data is not present in request body
+      const body = await req.json();
+      console.log("TEST: Intercepted request data:", body);
+      if (!body.data) {
+        return NextResponse.json(
+          { errors: ["Request body is missing data field"] },
+          { status: 400 }
+        );
+      }
+
+      const { data } = body;
       const parsedData = schema.safeParse(data);
 
       if (!parsedData.success) {
@@ -18,7 +28,8 @@ export function withValidation<T>(
       }
 
       return handler(req, parsedData.data);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Error in validation middleware:", error);
       return new NextResponse("Internal Server Error", { status: 500 });
     }
