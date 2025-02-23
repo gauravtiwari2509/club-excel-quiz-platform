@@ -27,7 +27,7 @@ const Navbar = () => {
         <Link href={"/contact"} className="uppercase">
           contact us
         </Link>
-        <Link href={"/contact"} className="uppercase">
+        <Link href={"/quizes"} className="uppercase">
           Quiz
         </Link>
         {
