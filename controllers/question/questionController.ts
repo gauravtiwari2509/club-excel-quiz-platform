@@ -33,6 +33,21 @@ export async function handleCreateQuestion(req: NextRequest, data: any) {
       );
     }
 
+    const quiz = await prisma.quiz.findUnique({
+      where: {
+        id: quizId,
+      },
+    });
+
+    if (!quiz) {
+      return NextResponse.json(
+        {
+          message: "quiz not found",
+        },
+        { status: 404 }
+      );
+    }
+
     await prisma.$transaction(async (prisma) => {
       const existingTopic = await prisma.topic.upsert({
         where: { name: topicName },
