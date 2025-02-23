@@ -1,5 +1,4 @@
 import MyQuizes from "@/components/Quiz/sections/MyQuizes";
-import QuizContainer from "@/components/Quiz/QuizContainer";
 import React from "react";
 
 const page = () => {
