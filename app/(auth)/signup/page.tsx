@@ -15,6 +15,7 @@ async function signUpPost(data: signUpParam) {
 }
 
 export default function SignUp() {
+  // TODO: reduce
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +24,7 @@ export default function SignUp() {
   const [roll, setRoll] = useState("");
   const router = useRouter();
 
+  // TODO: react query mutation
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try{
