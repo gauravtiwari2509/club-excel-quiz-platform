@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const CreateQuizSchema = z
+const CreateQuizSchema = z
   .object({
     title: z.string().min(3, "Title must be at least 3 characters long"),
     description: z.string().optional(),
@@ -23,3 +23,9 @@ export const CreateQuizSchema = z
     message: "End time must be greater than start time",
     path: ["startTime", "endTime"],
   });
+
+const getAndDeleteQuizSchema = z.object({
+  quizId: z.string().uuid("Quiz ID must be a valid UUID"),
+});
+
+export { CreateQuizSchema, getAndDeleteQuizSchema };

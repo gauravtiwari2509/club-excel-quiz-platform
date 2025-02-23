@@ -37,9 +37,9 @@ model Quiz {
   title        String
   description  String?
   categoryName String
-  // quiz status is not required in db.. who is going to update this .. needs a corn job if automated.. better if we logically find this out by start time and end time ( start time > now = upcomming, end time > now = ongoing, end time < now = completed)
   startTime    DateTime
   endTime      DateTime
+  isPublished  Boolean  @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -71,7 +71,7 @@ model Question {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  quiz    Quiz     @relation(fields: [quizId], references: [id])
+  quiz    Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
   topic   Topic    @relation(fields: [topicName], references: [name])
   options Option[]
   Answer  Answer[]
@@ -85,7 +85,7 @@ model Option {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  question Question @relation(fields: [questionId], references: [id])
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   Answer   Answer[]
 }
 
@@ -123,13 +123,7 @@ enum Role {
   ADMIN
   NORMAL
 }
-// this is not required as we can calculate this by start time and end time
-enum QuizStatus {
-  UPCOMING
-  ONGOING
-  COMPLETED
-}
-// attempt status is relevent can be updated when caculating score 
+
 enum AttemptStatus {
   IN_PROGRESS
   SUBMITTED
